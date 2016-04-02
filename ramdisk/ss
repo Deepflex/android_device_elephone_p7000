@@ -1,0 +1,716 @@
+#!/system/bin/sh
+
+# Define variables
+variables(){
+DT2S=$(cat /sys/android_touch/doubletap2sleep)
+DT2S_ACC=$(cat /sys/android_touch/doubletap2sleep_accuracy)
+DT2S_TIME=$(cat /sys/android_touch/doubletap2sleep_time)
+
+DT2S_UP=$(cat /sys/android_touch/doubletap2sleep_up)
+DT2S_DOWN=$(cat /sys/android_touch/doubletap2sleep_down)
+DT2S_RIGHT=$(cat /sys/android_touch/doubletap2sleep_right)
+DT2S_LEFT=$(cat /sys/android_touch/doubletap2sleep_left)
+
+DT2W=$(cat /sys/android_touch/doubletap2wake)
+DT2W_ACC=$(cat /sys/android_touch/doubletap2wake_accuracy)
+DT2W_TIME=$(cat /sys/android_touch/doubletap2wake_time)
+
+DT2W_UP=$(cat /sys/android_touch/doubletap2wake_up)
+DT2W_DOWN=$(cat /sys/android_touch/doubletap2wake_down)
+DT2W_RIGHT=$(cat /sys/android_touch/doubletap2wake_right)
+DT2W_LEFT=$(cat /sys/android_touch/doubletap2wake_left)
+
+S2W=$(cat /sys/android_touch/sweep2wake)
+S2W_INVERT=$(cat /sys/android_touch/sweep2wake_invert)
+
+S2S_UP=$(cat /sys/android_touch/sweep2sleep_up)
+S2S_DOWN=$(cat /sys/android_touch/sweep2sleep_down)
+S2S_RIGHT=$(cat /sys/android_touch/sweep2sleep_right)
+S2S_LEFT=$(cat /sys/android_touch/sweep2sleep_left)
+
+S2W_UP=$(cat /sys/android_touch/sweep2wake_up)
+S2W_DOWN=$(cat /sys/android_touch/sweep2wake_down)
+S2W_RIGHT=$(cat /sys/android_touch/sweep2wake_right)
+S2W_LEFT=$(cat /sys/android_touch/sweep2wake_left)
+}
+
+DT2S_SET=$(cat /sys/android_touch/doubletap2sleep)
+DT2S_ACC_SET=$(cat /sys/android_touch/doubletap2sleep_accuracy)
+DT2S_TIME_SET=$(cat /sys/android_touch/doubletap2sleep_time)
+
+DT2S_UP_SET=$(cat /sys/android_touch/doubletap2sleep_up)
+DT2S_DOWN_SET=$(cat /sys/android_touch/doubletap2sleep_down)
+DT2S_RIGHT_SET=$(cat /sys/android_touch/doubletap2sleep_right)
+DT2S_LEFT_SET=$(cat /sys/android_touch/doubletap2sleep_left)
+
+DT2W_SET=$(cat /sys/android_touch/doubletap2wake)
+DT2W_ACC_SET=$(cat /sys/android_touch/doubletap2wake_accuracy)
+DT2W_TIME_SET=$(cat /sys/android_touch/doubletap2wake_time)
+
+DT2W_UP_SET=$(cat /sys/android_touch/doubletap2wake_up)
+DT2W_DOWN_SET=$(cat /sys/android_touch/doubletap2wake_down)
+DT2W_RIGHT_SET=$(cat /sys/android_touch/doubletap2wake_right)
+DT2W_LEFT_SET=$(cat /sys/android_touch/doubletap2wake_left)
+
+S2W_SET=$(cat /sys/android_touch/sweep2wake)
+S2W_INVERT_SET=$(cat /sys/android_touch/sweep2wake_invert)
+
+S2S_UP_SET=$(cat /sys/android_touch/sweep2sleep_up)
+S2S_DOWN_SET=$(cat /sys/android_touch/sweep2sleep_down)
+S2S_RIGHT_SET=$(cat /sys/android_touch/sweep2sleep_right)
+S2S_LEFT_SET=$(cat /sys/android_touch/sweep2sleep_left)
+
+S2W_UP_SET=$(cat /sys/android_touch/sweep2wake_up)
+S2W_DOWN_SET=$(cat /sys/android_touch/sweep2wake_down)
+S2W_RIGHT_SET=$(cat /sys/android_touch/sweep2wake_right)
+S2W_LEFT_SET=$(cat /sys/android_touch/sweep2wake_left)
+
+
+# Colour
+RED='\033[0;0;31m' # Красный текст
+REDB='\033[0;1;31m' # Красный текст жирный
+GRN='\033[0;0;32m' # Зелёный текст
+GRNB='\033[0;1;32m' # Зелёный текст жирный
+YEL='\033[0;0;33m' # Жёлтый текст
+YELB='\033[0;1;33m' # Жёлтый текст жирный
+BLU='\033[0;0;34m' # Синий текст
+BLUB='\033[0;1;34m' # Синий текст жирный
+STD='\033[0;0;39m' # Стандартный текст
+STDB='\033[1m' # Жирный
+
+doubletap2sleep_set(){
+        clear
+        menu
+        echo "${YELB}Введите количество тапов [0-откл; 2 - 100]${STD}"
+        read -A DT2S_SET
+        if ((DT2S_SET >= 0 && DT2S_SET <= 100)); then
+            EXPORT DT2S_SET
+            echo "$DT2S_SET" > "/sys/android_touch/doubletap2sleep"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 100]${STD}" && sleep 3
+        fi
+}
+
+doubletap2wake_set(){
+        clear
+        menu
+        echo "${YELB}Введите количество тапов [0-откл; 2 - 100]${STD}"
+        read -A DT2W_SET
+        if ((DT2W_SET >= 0 && DT2W_SET <= 100)); then
+            EXPORT DT2W_SET
+            echo "$DT2W_SET" > "/sys/android_touch/doubletap2wake"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 100]${STD}" && sleep 3
+        fi
+}
+
+doubletap2sleep_acc_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение точности [5 - 1280] px${STD}"
+        read -A DT2S_ACC_SET
+        if ((DT2S_ACC_SET >= 5 && DT2S_ACC_SET <= 1280)); then
+            EXPORT DT2S_ACC_SET
+            echo "$DT2S_ACC_SET" > "/sys/android_touch/doubletap2sleep_accuracy"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [5 - 1360]${STD}" && sleep 3
+        fi
+}
+
+doubletap2sleep_time_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение времени [20 - 10000] ms${STD}"
+        read -A DT2S_TIME_SET
+        if ((DT2S_TIME_SET >= 20 && DT2S_TIME_SET <= 10000)); then
+            EXPORT DT2S_TIME_SET
+            echo "$DT2S_TIME_SET" > "/sys/android_touch/doubletap2sleep_time"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [20 - 10000]${STD}" && sleep 3
+        fi
+}
+
+doubletap2sleep_up_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение верхней границы [0 - 1360] px${STD}"
+        read -A DT2S_UP_SET
+        if ((DT2S_UP_SET >= 0 && DT2S_UP_SET <= 1360)); then
+            EXPORT DT2S_UP_SET
+            echo "$DT2S_UP_SET" > "/sys/android_touch/doubletap2sleep_up"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 1360]${STD}" && sleep 3
+        fi
+}
+
+doubletap2sleep_down_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение нижней границы [0 - 1360] px${STD}"
+        read -A DT2S_DOWN_SET
+        if ((DT2S_DOWN_SET >= 0 && DT2S_DOWN_SET <= 1360)); then
+            EXPORT DT2S_DOWN_SET
+            echo "$DT2S_DOWN_SET" > "/sys/android_touch/doubletap2sleep_down"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 1360]${STD}" && sleep 3
+        fi
+}
+
+doubletap2sleep_right_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение правой границы [0 - 720] px${STD}"
+        read -A DT2S_RIGHT_SET
+        if ((DT2S_RIGHT_SET >= 0 && DT2S_RIGHT_SET <= 720)); then
+            EXPORT DT2S_RIGHT_SET
+            echo "$DT2S_RIGHT_SET" > "/sys/android_touch/doubletap2sleep_right"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 720]${STD}" && sleep 3
+        fi
+}
+
+doubletap2sleep_left_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение левой границы [0 - 720] px${STD}"
+        read -A DT2S_LEFT_SET
+        if ((DT2S_LEFT_SET >= 0 && DT2S_LEFT_SET <= 720)); then
+            EXPORT DT2S_LEFT_SET
+            echo "$DT2S_LEFT_SET" > "/sys/android_touch/doubletap2sleep_left"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 720]${STD}" && sleep 3
+        fi
+}
+
+doubletap2wake_acc_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение точности [5 - 1280] px${STD}"
+        read -A DT2W_ACC_SET
+        if ((DT2W_ACC_SET >= 5 && DT2W_ACC_SET <= 1280)); then
+            EXPORT DT2W_ACC_SET
+            echo "$DT2W_ACC_SET" > "/sys/android_touch/doubletap2wake_accuracy"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [5 - 1360]${STD}" && sleep 3
+        fi
+}
+
+doubletap2wake_time_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение времени [20 - 10000] ms${STD}"
+        read -A DT2W_TIME_SET
+        if ((DT2W_TIME_SET >= 20 && DT2W_TIME_SET <= 10000)); then
+            EXPORT DT2W_TIME_SET
+            echo "$DT2W_TIME_SET" > "/sys/android_touch/doubletap2wake_time"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [20 - 10000]${STD}" && sleep 3
+        fi
+}
+
+doubletap2wake_up_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение верхней границы [0 - 1360] px${STD}"
+        read -A DT2W_UP_SET
+        if ((DT2W_UP_SET >= 0 && DT2W_UP_SET <= 1360)); then
+            EXPORT DT2W_UP_SET
+            echo "$DT2W_UP_SET" > "/sys/android_touch/doubletap2wake_up"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 1360]${STD}" && sleep 3
+        fi
+}
+
+doubletap2wake_down_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение нижней границы [0 - 1360] px${STD}"
+        read -A DT2W_DOWN_SET
+        if ((DT2W_DOWN_SET >= 0 && DT2W_DOWN_SET <= 1360)); then
+            EXPORT DT2W_DOWN_SET
+            echo "$DT2W_DOWN_SET" > "/sys/android_touch/doubletap2wake_down"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 1360]${STD}" && sleep 3
+        fi
+}
+
+doubletap2wake_right_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение правой границы [0 - 720] px${STD}"
+        read -A DT2W_RIGHT_SET
+        if ((DT2W_RIGHT_SET >= 0 && DT2W_RIGHT_SET <= 720)); then
+            EXPORT DT2W_RIGHT_SET
+            echo "$DT2W_RIGHT_SET" > "/sys/android_touch/doubletap2wake_right"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 720]${STD}" && sleep 3
+        fi
+}
+
+doubletap2wake_left_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение левой границы [0 - 720] px${STD}"
+        read -A DT2W_LEFT_SET
+        if ((DT2W_LEFT_SET >= 0 && DT2W_LEFT_SET <= 720)); then
+            EXPORT DT2W_LEFT_SET
+            echo "$DT2W_LEFT_SET" > "/sys/android_touch/doubletap2wake_left"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 720]${STD}" && sleep 3
+        fi
+}
+
+sweep2wake_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение [0 - 3]${STD}"
+        read -A S2W_SET
+        if ((S2W_SET >= 0 && S2W_SET <= 3)); then
+            EXPORT S2W_SET
+            echo "$S2W_SET" > "/sys/android_touch/sweep2wake"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 3]${STD}" && sleep 3
+        fi
+}
+
+sweep2wake_invert_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение [0 - 1]${STD}"
+        read -A S2W_INVERT_SET
+        if ((S2W_INVERT_SET >= 0 && S2W_INVERT_SET <= 1)); then
+            EXPORT S2W_INVERT_SET
+            echo "$S2W_INVERT_SET" > "/sys/android_touch/sweep2wake_invert"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 1]${STD}" && sleep 3
+        fi
+}
+
+sweep2sleep_up_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение верхнего триггера [0 - 1280] px${STD}"
+        read -A S2S_UP_SET
+        if ((S2S_UP_SET >= 0 && S2S_UP_SET <= 1280)); then
+            EXPORT S2S_UP_SET
+            echo "$S2S_UP_SET" > "/sys/android_touch/sweep2sleep_up"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 1280]${STD}" && sleep 3
+        fi
+}
+
+sweep2sleep_down_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение нижнего триггера [0 - 1280] px${STD}"
+        read -A S2S_DOWN_SET
+        if ((S2S_DOWN_SET >= 0 && S2S_DOWN_SET <= 1280)); then
+            EXPORT S2S_DOWN_SET
+            echo "$S2S_DOWN_SET" > "/sys/android_touch/sweep2sleep_down"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 1280]${STD}" && sleep 3
+        fi
+}
+
+sweep2sleep_right_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение правого триггера [0 - 720] px${STD}"
+        read -A S2S_RIGHT_SET
+        if ((S2S_RIGHT_SET >= 0 && S2S_RIGHT_SET <= 720)); then
+            EXPORT S2S_RIGHT_SET
+            echo "$S2S_RIGHT_SET" > "/sys/android_touch/sweep2sleep_right"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 720]${STD}" && sleep 3
+        fi
+}
+
+sweep2sleep_left_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение левого триггера [0 - 720] px${STD}"
+        read -A S2S_LEFT_SET
+        if ((S2S_LEFT_SET >= 0 && S2S_LEFT_SET <= 720)); then
+            EXPORT S2S_LEFT_SET
+            echo "$S2S_LEFT_SET" > "/sys/android_touch/sweep2sleep_left"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 720]${STD}" && sleep 3
+        fi
+}
+
+sweep2wake_up_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение верхней границы [0 - 1280] px${STD}"
+        read -A S2W_UP_SET
+        if ((S2W_UP_SET >= 0 && S2W_UP_SET <= 1280)); then
+            EXPORT S2W_UP_SET
+            echo "$S2W_UP_SET" > "/sys/android_touch/sweep2wake_up"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 1280]${STD}" && sleep 3
+        fi
+}
+
+sweep2wake_down_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение нижней границы [0 - 1280] px${STD}"
+        read -A S2W_DOWN_SET
+        if ((S2W_DOWN_SET >= 0 && S2W_DOWN_SET <= 1280)); then
+            EXPORT S2W_DOWN_SET
+            echo "$S2W_DOWN_SET" > "/sys/android_touch/sweep2wake_down"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 1280]${STD}" && sleep 3
+        fi
+}
+
+sweep2wake_right_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение правой границы [0 - 720] px${STD}"
+        read -A S2W_RIGHT_SET
+        if ((S2W_RIGHT_SET >= 0 && S2W_RIGHT_SET <= 720)); then
+            EXPORT S2W_RIGHT_SET
+            echo "$S2W_RIGHT_SET" > "/sys/android_touch/sweep2wake_right"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 720]${STD}" && sleep 3
+        fi
+}
+
+sweep2wake_left_set(){
+        clear
+        menu
+        echo "${YELB}Введите значение левой границы [0 - 720] px${STD}"
+        read -A S2W_LEFT_SET
+        if ((S2W_LEFT_SET >= 0 && S2W_LEFT_SET <= 720)); then
+            EXPORT S2W_LEFT_SET
+            echo "$S2W_LEFT_SET" > "/sys/android_touch/sweep2wake_left"
+        else
+            echo -e "${REDB}Ошибка! Значение должно быть\nв пределах [0 - 720]${STD}" && sleep 3
+        fi
+}
+
+help(){
+        clear
+echo
+echo "1) doubletap2sleep:"
+echo "   0 - отключен; 2-100 - количество тапов для блокировки"
+echo "   Значение по умолчанию 0"
+echo
+echo "2) doubletap2sleep:"
+echo "   Погрешность (в пикселях). Чем меньше значение, тем точнее"
+echo "   необходимо делать последующие нажатия относительного первого."
+echo "   Значение по умолчанию 50"
+echo
+echo "3) doubletap2sleep:"
+echo "   Время в мсек между тапами. Чем меньше значение,"
+echo "   тем быстрее нужно нажимать на экран."
+echo "   Значение по умолчанию 600"
+echo
+echo "4) doubletap2sleep:"
+echo "   Расстояние срабатывания (в пикселях) от верхней границы экрана"
+echo "   Значения 0-1280"
+echo
+echo "5) doubletap2sleep:"
+echo "   Расстояние срабатывания (в пикселях) до нижней границы экрана"
+echo "   примечание: 1280 - конец экрана; 1360 - включая сенсорные кнопки"
+echo "   Значения 0-1360"
+echo
+echo "6) doubletap2sleep:"
+echo "   Расстояние срабатывания (в пикселях) до правой границы экрана"
+echo "   Значения 0-720"
+echo
+echo "7) doubletap2sleep:"
+echo "   Расстояние срабатывания (в пикселях) от левой границы экрана"
+echo "   Значения 0-720"
+echo
+echo "8) doubletap2wake:"
+echo "   0 - отключен; 2-100 - количество тапов для разблокировки"
+echo "   Значение по умолчанию 0"
+echo
+echo "9) doubletap2wake:"
+echo "   Погрешность (в пикселях). Чем меньше значение, тем точнее"
+echo "   необходимо делать последующие нажатия относительного первого."
+echo "   Значение по умолчанию 50"
+echo
+echo "10) doubletap2wake:"
+echo "   Время в мсек между тапами. Чем меньше значение,"
+echo "   тем быстрее нужно нажимать на экран."
+echo "   Значение по умолчанию 600"
+echo
+echo "11) doubletap2wake:"
+echo "   Расстояние срабатывания (в пикселях) от верхней границы экрана"
+echo "   Значения 0-1280"
+echo
+echo "12) doubletap2wake:"
+echo "   Расстояние срабатывания (в пикселях) до нижней границы экрана"
+echo "   примечание: 1280 - конец экрана; 1360 - включая сенсорные кнопки"
+echo "   Значения 0-1360"
+echo
+echo "13) doubletap2wake:"
+echo "   Расстояние срабатывания (в пикселях) до правой границы экрана"
+echo "   Значения 0-720"
+echo
+echo "14) doubletap2wake:"
+echo "   Расстояние срабатывания (в пикселях) от левой границы экрана"
+echo "   Значения 0-720"
+echo
+echo "15) sweep2wake:"
+echo "   0 - отключен; 1 - sweep2wake & sweep2sleep;"
+echo "   2 - только sweep2sleep; 3 - только sweep2wake"
+echo "   Значение по умолчанию 0"
+echo
+echo "16) sweep2wake_invert:"
+echo "    0 - горизонтальный свайп; 1 - вертикальный свайп"
+echo "    Значение по умолчанию 0"
+echo
+echo "17) sweep2sleep"
+echo "    Расстояние срабатывания (в пикселях) от верхней границы экрана"
+echo "    Значения 0-1280"
+echo
+echo "18) sweep2sleep"
+echo "    Расстояние срабатывания (в пикселях) до нижней границы экрана"
+echo "    Значения 0-1280"
+echo
+echo "19) sweep2sleep"
+echo "    Расстояние срабатывания (в пикселях) до правой границы экрана"
+echo "    Значения 0-720"
+echo
+echo "20) sweep2sleep"
+echo "    Расстояние срабатывания (в пикселях) от левой границы экрана"
+echo "    Значения 0-720"
+echo
+echo "21) sweep2wake"
+echo "    Расстояние срабатывания (в пикселях) от верхней границы экрана"
+echo "    Значения 0-1280"
+echo
+echo "22) sweep2wake"
+echo "    Расстояние срабатывания (в пикселях) до нижней границы экрана"
+echo "    Значения 0-1280"
+echo
+echo "23) sweep2wake"
+echo "    Расстояние срабатывания (в пикселях) до правой границы экрана"
+echo "    Значения 0-720"
+echo
+echo "24) sweep2wake"
+echo "    Расстояние срабатывания (в пикселях) от левой границы экрана"
+echo "    Значения 0-720"
+echo
+echo "25) Восстанавливает значения по умолчанию"
+echo
+echo "26) Применяет значения при загрузке"
+echo "    (значения записываются в файл /system/etc/init.d/set)"
+echo
+echo "27) Эта справка"
+echo
+echo "28) Выход из меню"
+echo
+pause
+}
+
+pause()
+{
+echo -e "${BLUB}Нажмите любую клавишу для выхода...${STD}"
+read -s -n 1 -A
+}
+
+default(){
+        clear
+        menu
+echo "0" > "/sys/android_touch/doubletap2sleep"
+echo "50" > "/sys/android_touch/doubletap2sleep_accuracy"
+echo "600" > "/sys/android_touch/doubletap2sleep_time"
+
+echo "0" > "/sys/android_touch/doubletap2sleep_up"
+echo "1280" > "/sys/android_touch/doubletap2sleep_down"
+echo "720" > "/sys/android_touch/doubletap2sleep_right"
+echo "0" > "/sys/android_touch/doubletap2sleep_left"
+
+echo "0" > "/sys/android_touch/doubletap2wake"
+echo "50" > "/sys/android_touch/doubletap2wake_accuracy"
+echo "600" > "/sys/android_touch/doubletap2wake_time"
+
+echo "0" > "/sys/android_touch/doubletap2wake_up"
+echo "1280" > "/sys/android_touch/doubletap2wake_down"
+echo "720" > "/sys/android_touch/doubletap2wake_right"
+echo "0" > "/sys/android_touch/doubletap2wake_left"
+
+echo "0" > "/sys/android_touch/sweep2wake"
+echo "0" > "/sys/android_touch/sweep2wake_invert"
+
+echo "240" > "/sys/android_touch/sweep2sleep_up"
+echo "1270" > "/sys/android_touch/sweep2sleep_down"
+echo "600" > "/sys/android_touch/sweep2sleep_right"
+echo "240" > "/sys/android_touch/sweep2sleep_left"
+
+echo "240" > "/sys/android_touch/sweep2wake_up"
+echo "1270" > "/sys/android_touch/sweep2wake_down"
+echo "600" > "/sys/android_touch/sweep2wake_right"
+echo "240" > "/sys/android_touch/sweep2wake_left"
+
+DT2S_SET=0
+DT2S_ACC_SET=50
+DT2S_TIME_SET=600
+
+DT2S_UP_SET=0
+DT2S_DOWN_SET=1280
+DT2S_RIGHT_SET=720
+DT2S_LEFT_SET=0
+
+DT2W_SET=0
+DT2W_ACC_SET=50
+DT2W_TIME_SET=600
+
+DT2W_UP_SET=0
+DT2W_DOWN_SET=1280
+DT2W_RIGHT_SET=720
+DT2W_LEFT_SET=0
+
+S2W_SET=0
+S2W_INVERT_SET=0
+
+S2S_UP_SET=240
+S2S_DOWN_SET=1270
+S2S_RIGHT_SET=600
+S2S_LEFT_SET=240
+
+S2W_UP_SET=240
+S2W_DOWN_SET=1270
+S2W_RIGHT_SET=600
+S2W_LEFT_SET=240
+
+echo -e "${BLUB}Значения по умолчанию восстановлены${STD}" && sleep 3
+}
+
+write_script(){
+        clear
+        menu
+        mount -o remount,rw /system
+	rm -rf /system/etc/init.d/set
+(cat << EOF) > /system/etc/init.d/set
+#!/system/bin/sh
+
+echo "${DT2S_SET}" > "/sys/android_touch/doubletap2sleep"
+echo "${DT2S_ACC_SET}" > "/sys/android_touch/doubletap2sleep_accuracy"
+echo "${DT2S_TIME_SET}" > "/sys/android_touch/doubletap2sleep_time"
+
+echo "${DT2S_UP_SET}" > "/sys/android_touch/doubletap2sleep_up"
+echo "${DT2S_DOWN_SET}" > "/sys/android_touch/doubletap2sleep_down"
+echo "${DT2S_RIGHT_SET}" > "/sys/android_touch/doubletap2sleep_right"
+echo "${DT2S_LEFT_SET}" > "/sys/android_touch/doubletap2sleep_left"
+
+echo "${DT2W_SET}" > "/sys/android_touch/doubletap2wake"
+echo "${DT2W_ACC_SET}" > "/sys/android_touch/doubletap2wake_accuracy"
+echo "${DT2W_TIME_SET}" > "/sys/android_touch/doubletap2wake_time"
+
+echo "${DT2W_UP_SET}" > "/sys/android_touch/doubletap2wake_up"
+echo "${DT2W_DOWN_SET}" > "/sys/android_touch/doubletap2wake_down"
+echo "${DT2W_RIGHT_SET}" > "/sys/android_touch/doubletap2wake_right"
+echo "${DT2W_LEFT_SET}" > "/sys/android_touch/doubletap2wake_left"
+
+echo "${S2W_SET}" > "/sys/android_touch/sweep2wake"
+echo "${S2W_INVERT_SET}" > "/sys/android_touch/sweep2wake_invert"
+
+echo "${S2S_UP_SET}" > "/sys/android_touch/sweep2sleep_up"
+echo "${S2S_DOWN_SET}" > "/sys/android_touch/sweep2sleep_down"
+echo "${S2S_RIGHT_SET}" > "/sys/android_touch/sweep2sleep_right"
+echo "${S2S_LEFT_SET}" > "/sys/android_touch/sweep2sleep_left"
+
+echo "${S2W_UP_SET}" > "/sys/android_touch/sweep2wake_up"
+echo "${S2W_DOWN_SET}" > "/sys/android_touch/sweep2wake_down"
+echo "${S2W_RIGHT_SET}" > "/sys/android_touch/sweep2wake_right"
+echo "${S2W_LEFT_SET}" > "/sys/android_touch/sweep2wake_left"
+EOF
+        chmod 755 /system/etc/init.d/set
+        mount -o remount,ro /system
+        echo -e "${BLUB}Значения при загрузке установлены${STD}" && sleep 3
+}
+
+menu(){
+        clear
+        echo
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}1. DoubleTap2Sleep: ${YELB}"$DT2S"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}2. DT2S точность: ${YELB}"$DT2S_ACC"${STD}"
+        echo -e "${GRNB}3. DT2S время: ${YELB}"$DT2S_TIME"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}4. DT2S верхняя граница: ${YELB}"$DT2S_UP"${STD}"
+        echo -e "${GRNB}5. DT2S нижняя граница: ${YELB}"$DT2S_DOWN"${STD}"
+        echo -e "${GRNB}6. DT2S правая граница: ${YELB}"$DT2S_RIGHT"${STD}"
+        echo -e "${GRNB}7. DT2S левая граница: ${YELB}"$DT2S_LEFT"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}8. DoubleTap2Wake: ${YELB}"$DT2W"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}9. DT2W точность: ${YELB}"$DT2W_ACC"${STD}"
+        echo -e "${GRNB}10. DT2W время: ${YELB}"$DT2W_TIME"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}11. DT2W верхняя граница: ${YELB}"$DT2W_UP"${STD}"
+        echo -e "${GRNB}12. DT2W нижняя граница: ${YELB}"$DT2W_DOWN"${STD}"
+        echo -e "${GRNB}13. DT2W правая граница: ${YELB}"$DT2W_RIGHT"${STD}"
+        echo -e "${GRNB}14. DT2W левая граница: ${YELB}"$DT2W_LEFT"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}15. Sweep2Wake: ${YELB}"$S2W"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}16. S2W инверт: ${YELB}"$S2W_INVERT"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}17. S2W верхняя граница: ${YELB}"$S2W_UP"${STD}"
+        echo -e "${GRNB}18. S2W нижняя граница: ${YELB}"$S2W_DOWN"${STD}"
+        echo -e "${GRNB}19. S2W правая граница: ${YELB}"$S2W_RIGHT"${STD}"
+        echo -e "${GRNB}20. S2W левая граница: ${YELB}"$S2W_LEFT"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}21. S2S верхняя граница: ${YELB}"$S2S_UP"${STD}"
+        echo -e "${GRNB}22. S2S нижняя граница: ${YELB}"$S2S_DOWN"${STD}" 
+        echo -e "${GRNB}23. S2S правая граница: ${YELB}"$S2S_RIGHT"${STD}"
+        echo -e "${GRNB}24. S2S левая граница: ${YELB}"$S2S_LEFT"${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+        echo -e "${GRNB}25. Восстановить значения по умолчанию${STD}"
+        echo -e "${GRNB}26. Применить при загрузке${STD}"
+        echo -e "${GRNB}27. Справка${STD}"
+        echo -e "${GRNB}28. Выход${STD}"
+        echo -e "${BLUB}*****************************${STD}"
+}
+
+read_options(){
+        echo -e "${YELB}Введите номер пункта [1 - 28]${STD}"
+        local choice
+        read -A choice
+        case $choice in
+            1) doubletap2sleep_set ;;
+            2) doubletap2sleep_acc_set ;;
+            3) doubletap2sleep_time_set ;;
+            4) doubletap2sleep_up_set ;;
+            5) doubletap2sleep_down_set ;;
+            6) doubletap2sleep_right_set ;;
+            7) doubletap2sleep_left_set ;;
+            8) doubletap2wake_set ;;
+            9) doubletap2wake_acc_set ;;
+            10) doubletap2wake_time_set ;;
+            11) doubletap2wake_up_set ;;
+            12) doubletap2wake_down_set ;;
+            13) doubletap2wake_right_set ;;
+            14) doubletap2wake_left_set ;;
+            15) sweep2wake_set ;;
+            16) sweep2wake_invert_set ;;
+            17) sweep2wake_up_set ;;
+            18) sweep2wake_down_set ;;
+            19) sweep2wake_right_set ;;
+            20) sweep2wake_left_set ;;
+            21) sweep2sleep_up_set ;;
+            22) sweep2sleep_down_set ;;
+            23) sweep2sleep_right_set ;;
+            24) sweep2sleep_left_set ;;
+            25) default ;;
+            26) write_script ;;
+            27) help ;;
+            28) clear
+                exit 0 ;;
+            *)  echo -e "${REDB}Ошибка! Неверный номер пункта${STD}" && sleep 3
+        esac
+}
+
+(while true; do
+        variables
+        menu
+        read_options
+done)
