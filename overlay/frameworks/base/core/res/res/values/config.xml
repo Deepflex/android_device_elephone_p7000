@@ -22,11 +22,11 @@
     <bool name="config_animateScreenLights">true</bool>
 
     <!-- Remote server that can provide NTP responses. -->
-    <string translatable="false" name="config_ntpServer">europe.pool.ntp.org</string>
+    <string translatable="false" name="config_ntpServer">asia.pool.ntp.org</string>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
-    <integer name="config_screenBrightnessSettingMinimum">1</integer>
+    <integer name="config_screenBrightnessSettingMinimum">50</integer>
 
     <!-- Screen brightness used to dim the screen when the user activity
         timeout expires.  May be less than the minimum allowed brightness setting
@@ -121,8 +121,6 @@
     <bool name="config_automatic_brightness_available">true</bool>
 
     <integer-array name="config_autoBrightnessLevels">
-        <item>16</item>
-        <item>32</item>
         <item>50</item>
         <item>100</item>
         <item>140</item>
@@ -144,8 +142,6 @@
          The brightness values must be between 0 and 255 and be non-decreasing.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>30</item>
-        <item>40</item>
         <item>50</item>
         <item>60</item>
         <item>70</item>
@@ -328,14 +324,7 @@
 
 
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
-    <bool name="config_batterySdCardAccessibility">true</bool>
-
-    <!-- Default value for proximity check on screen wake
-         NOTE ! - Enable for devices that have a fast response proximity sensor (ideally < 300ms)
-    -->
-    <bool name="config_proximityCheckOnWake">true</bool>
-    <bool name="config_proximityCheckOnWakeEnabledByDefault">true</bool>
-    <integer name="config_proximityCheckTimeout">250</integer>
+    <bool name="config_batterySdCardAccessibility">false</bool>
 
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>

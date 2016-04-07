@@ -61,13 +61,13 @@ MTK_PLATFORM := mt6752
 MTK_PROJECT := 6752
 
 # build kernel from source
-# TARGET_KERNEL_SOURCE := kernel/elephone/p7000
-# TARGET_KERNEL_ARCH := arm64
-# TARGET_KERNEL_HEADER_ARCH := arm64
-# TARGET_KERNEL_CONFIG := cyanogenmod_p7000_defconfig
-# TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-# MTK_APPENDED_DTB_SUPPORT := yes
-# BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+#TARGET_KERNEL_SOURCE := kernel/elephone/p7000
+#TARGET_KERNEL_ARCH := arm64
+#TARGET_KERNEL_HEADER_ARCH := arm64
+#TARGET_KERNEL_CONFIG := cyanogenmod_p7000_defconfig
+#TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+#MTK_APPENDED_DTB_SUPPORT := yes
+#BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
  
 # prebuild kernel as fallback
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
@@ -379,5 +379,5 @@ BOARD_SEPOLICY_UNION += \
 	cmddumper.te \
 	tunman.te
 
-
-
+# Prebuilt kernel stuff
+$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)

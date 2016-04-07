@@ -15,11 +15,11 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 PRODUCT_LOCALES := en_US ru_RU uk_UA cs_CZ sk_SK
 
 # Recovery allowed devices
-TARGET_OTA_ASSERT_DEVICE := p7000,pioneer,elephone p7000,mt6752
+TARGET_OTA_ASSERT_DEVICE := p7000
 
 # Kernel
 #ifeq ($(TARGET_PREBUILT_KERNEL),)
-#	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
+#	LOCAL_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
 #else
 #	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 #endif
@@ -31,6 +31,11 @@ TARGET_OTA_ASSERT_DEVICE := p7000,pioneer,elephone p7000,mt6752
 
 PRODUCT_PACKAGES += \
     libxlog
+
+# FM Radio
+PRODUCT_PACKAGES += \
+    FMRadio \
+    FmRadioTrampoline
 
 # FM Radio
 #PRODUCT_PACKAGES += \
@@ -90,6 +95,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
      $(LOCAL_PATH)/configs/mtk-kpd.kl:system/usr/keylayout/mtk-kpd.kl \
      $(LOCAL_PATH)/configs/ACCDET.kl:system/usr/keylayout/ACCDET.kl\
+     $(LOCAL_PATH)/configs/ACCDET.kl:system/usr/keylayout/Generic.kl\
      $(LOCAL_PATH)/configs/AVRCP.kl:system/usr/keylayout/AVRCP.kl    
 
 # Ramdisk
@@ -104,7 +110,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/init.project.rc:root/init.project.rc \
     $(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
     $(LOCAL_PATH)/ramdisk/init.ssd.rc:root/init.ssd.rc \
-    $(LOCAL_PATH)/ramdisk/ss:root/sbin/ss \
     $(LOCAL_PATH)/ramdisk/ueventd.mt6752.rc:root/ueventd.mt6752.rc \
     $(LOCAL_PATH)/ramdisk/init.mt6752.power.rc:root/init.mt6752.power.rc
 

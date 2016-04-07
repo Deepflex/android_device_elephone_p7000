@@ -1,3 +1,15 @@
+From 8163ec618f05d7fabe9b1bfae1e2c7575ed27a0a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E7=A7=8B=E5=8F=B6=E9=9A=8F=E9=A3=8Eivan?=
+ <yanziily@gmail.com>
+Date: Sun, 3 Jan 2016 21:28:59 +0800
+Subject: [PATCH] Patch for MTK
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Change-Id: I3d9ff9bcb8c7ee46b5820d9ba1be0406236c09fb
+Signed-off-by: 秋叶随风ivan <yanziily@gmail.com>
+
 diff -ur libhardware_legacy/vibrator/Android.mk libhardware_legacy_mtk/vibrator/Android.mk
 --- libhardware_legacy/vibrator/Android.mk	2016-01-22 15:47:44.299870000 -0800
 +++ libhardware_legacy_mtk/vibrator/Android.mk	2016-01-23 05:25:45.217410359 -0800

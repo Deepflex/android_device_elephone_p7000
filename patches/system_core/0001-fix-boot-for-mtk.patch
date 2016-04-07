@@ -1,3 +1,15 @@
+From a945c5e9b1d19788cbd414795f6bfb2325c11024 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E7=A7=8B=E5=8F=B6=E9=9A=8F=E9=A3=8Eivan?=
+ <yanziily@gmail.com>
+Date: Sun, 3 Jan 2016 22:03:19 +0800
+Subject: [PATCH] Fix boot for mtk
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Change-Id: Ia628e1992fd978c17da6f9c526160adcdae9a693
+Signed-off-by: 秋叶随风ivan <yanziily@gmail.com>
+
 diff -ur core/healthd/BatteryMonitor.cpp core_mtk/healthd/BatteryMonitor.cpp
 --- core/healthd/BatteryMonitor.cpp	2016-01-22 15:55:46.497330000 -0800
 +++ core_mtk/healthd/BatteryMonitor.cpp	2016-01-23 05:28:26.435234000 -0800

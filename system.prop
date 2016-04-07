@@ -26,7 +26,7 @@ ro.sys.usb.mtp.whql.enable=0
 # Power off opt in IPO
 sys.ipo.pwrdncap=2
 
-ro.sys.usb.storage.type=mtp,mass_storage,adb
+ro.sys.usb.storage.type=mtp
 
 # USB BICR function
 ro.sys.usb.bicr=yes
@@ -51,7 +51,7 @@ ro.kernel.zio=38,108,105,16
 # Disable dirty region for Mali
 debug.hwui.render_dirty_regions=false
 
-ro.sf.lcd_density=480
+ro.sf.lcd_density=440
 
 ro.mediatek.chip_ver=S01
 ro.mediatek.version.release=ALPS.W10.24.p0
