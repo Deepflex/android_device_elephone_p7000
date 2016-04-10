@@ -15,7 +15,7 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 PRODUCT_LOCALES := en_US ru_RU uk_UA cs_CZ sk_SK
 
 # Recovery allowed devices
-TARGET_OTA_ASSERT_DEVICE := p7000
+TARGET_OTA_ASSERT_DEVICE := P7000
 
 # Kernel
 #ifeq ($(TARGET_PREBUILT_KERNEL),)
@@ -95,7 +95,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
      $(LOCAL_PATH)/configs/mtk-kpd.kl:system/usr/keylayout/mtk-kpd.kl \
      $(LOCAL_PATH)/configs/ACCDET.kl:system/usr/keylayout/ACCDET.kl\
-     $(LOCAL_PATH)/configs/Generic.kl:system/usr/keylayout/Generic.kl\
      $(LOCAL_PATH)/configs/AVRCP.kl:system/usr/keylayout/AVRCP.kl    
 
 # Ramdisk
