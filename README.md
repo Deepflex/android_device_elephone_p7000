@@ -8,6 +8,7 @@ All
 Fingerprint (Will be fixed soon)
 Led (Will be fixed soon)
 #Thx to
+-CyanogenMod team
 -Jianminglok
 -Xen0n
 -Nofearnohappy
