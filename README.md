@@ -7,3 +7,8 @@ All
 #DON'T WORK:
 Fingerprint (Will be fixed soon)
 Led (Will be fixed soon)
+#Thx to
+-Jianminglok
+-Xen0n
+-Nofearnohappy
+-Vgdn1942
